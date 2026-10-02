@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calculadora de ração – Progress</title>
+<style>
+:root{--bg:#f3efe4;--card:#fffdf7;--ink:#23301f;--mut:#667060;--acc:#2f6b3a;--acc2:#e8f0dc;--line:#d9d3bf;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171c15;--card:#20271d;--ink:#eef1e6;--mut:#a3ac9a;--acc:#8fcf8a;--acc2:#2c3a28;--line:#3a4535}}
+:root[data-theme="dark"]{--bg:#171c15;--card:#20271d;--ink:#eef1e6;--mut:#a3ac9a;--acc:#8fcf8a;--acc2:#2c3a28;--line:#3a4535}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:520px;margin:0 auto;padding:16px}
+h1{font:700 22px/1.2 Georgia,"Times New Roman",serif;margin:4px 0 2px}
+.sub{color:var(--mut);font-size:14px;margin:0 0 16px}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 6px}
+select,input{width:100%;font:inherit;padding:12px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+select:focus,input:focus,button:focus-visible{outline:3px solid var(--acc);outline-offset:1px}
+.row{display:flex;gap:10px}.row>div{flex:1}
+.seg{display:flex;border:1.5px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{flex:1;padding:10px;border:0;background:var(--card);color:var(--ink);font:inherit;font-size:14px}
+.seg button[aria-pressed="true"]{background:var(--acc);color:var(--bg);font-weight:700}
+.res{margin-top:18px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;overflow:hidden}
+.item{display:flex;justify-content:space-between;align-items:baseline;padding:12px 14px;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.item b{font-size:20px;font-variant-numeric:tabular-nums}
+.item small{color:var(--mut);display:block;font-size:13px}
+.tot{background:var(--acc2);font-weight:700}
+.note{color:var(--mut);font-size:12px;margin-top:14px}
+.bar{height:6px;background:var(--acc2);border-radius:3px;margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--acc)}
+</style>
+</head>
+<body>
+<main>
+<h1>Calculadora de ração</h1>
+<p class="sub">Programa Nutricional Suinocultura – Progress (Rebanho)</p>
+
+<label for="fase">Fase</label>
+<select id="fase"></select>
+
+<label>Calcular a partir de</label>
+<div class="seg" role="group" aria-label="Modo de cálculo">
+  <button type="button" id="m0" aria-pressed="true">Total da mistura</button>
+  <button type="button" id="m1" aria-pressed="false">Um ingrediente</button>
+</div>
+
+<div class="row">
+  <div id="wIng" hidden><label for="ing">Ingrediente</label><select id="ing"></select></div>
+  <div><label for="qtd" id="lq">Total da mistura (kg)</label><input id="qtd" type="number" inputmode="decimal" min="0" step="any" value="100"></div>
+</div>
+
+<div class="res" id="res" aria-live="polite"></div>
+<p class="note">As proporções são em kg para cada 100 kg de ração. Siga a orientação técnica da Rebanho; as fórmulas sugeridas podem não se aplicar a todo sistema.</p>
+</main>
+<script>
+const ING=["Milho","Farelo de soja","Farelo de trigo","Açúcar","Progress 3","Progress 4","Power Inicial","Progress Crescimento","Progress Terminação","Progress Reprodução"];
+const FASES={
+"Pré-Inicial 1 (7 a 35 dias)":[40,15,0,5,40,0,0,0,0,0],
+"Pré-Inicial 2 (35 a 49 dias)":[50,25,0,5,0,20,0,0,0,0],
+"Inicial (50 a 70 dias)":[60,31,0,4,0,0,5,0,0,0],
+"Crescimento (71 a 110 dias)":[72,25,0,0,0,0,0,3,0,0],
+"Terminação (111 dias – abate)":[77,20,0,0,0,0,0,0,3,0],
+"Gestação":[57,16,24,0,0,0,0,0,0,3],
+"Lactação":[62,30,0,5,0,0,0,0,0,3]
+};
+const $=id=>document.getElementById(id);
+let modo=0;
+const fmt=n=>n.toLocaleString("pt-BR",{maximumFractionDigits:2});
+function ingsDaFase(){return FASES[$("fase").value].map((p,i)=>[ING[i],p]).filter(x=>x[1]>0)}
+function fillIng(){const cur=$("ing").value;$("ing").innerHTML=ingsDaFase().map(x=>`<option>${x[0]}</option>`).join("");if([...$("ing").options].some(o=>o.value===cur))$("ing").value=cur}
+function calc(){
+  const lista=ingsDaFase();const q=parseFloat(String($("qtd").value).replace(",","."))||0;
+  let total=q;
+  if(modo===1){const p=lista.find(x=>x[0]===$("ing").value);total=p?q*100/p[1]:0}
+  $("res").innerHTML=lista.map(([n,p])=>`<div class="item"><div>${n}<small>${fmt(p)}%</small><div class="bar"><i style="width:${p}%"></i></div></div><b>${fmt(total*p/100)} kg</b></div>`).join("")+
+  `<div class="item tot"><span>Total da mistura</span><b>${fmt(total)} kg</b></div>`;
+}
+function setModo(m){modo=m;$("m0").setAttribute("aria-pressed",m===0);$("m1").setAttribute("aria-pressed",m===1);
+  $("wIng").hidden=m===0;$("lq").textContent=m===0?"Total da mistura (kg)":"Quantidade do ingrediente (kg)";calc()}
+$("fase").innerHTML=Object.keys(FASES).map(f=>`<option>${f}</option>`).join("");
+$("fase").onchange=()=>{fillIng();calc()};
+$("ing").onchange=calc;$("qtd").oninput=calc;
+$("m0").onclick=()=>setModo(0);$("m1").onclick=()=>setModo(1);
+fillIng();calc();
+</script>
+</body>
+</html>
