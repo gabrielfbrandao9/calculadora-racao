@@ -232,6 +232,32 @@ if (prefs) {
   if (prefs.modo === 1) definirModo(1);
 }
 
+/* ---------- tema claro / escuro ---------- */
+
+const CHAVE_TEMA = 'racao-tema';
+const temaEscuroSistema = matchMedia('(prefers-color-scheme: dark)');
+const temaAtual = () => document.documentElement.dataset.theme || (temaEscuroSistema.matches ? 'dark' : 'light');
+
+function mostrarTema() {
+  const escuro = temaAtual() === 'dark';
+  document.documentElement.classList.toggle('escuro', escuro);
+  const txt = escuro ? 'Mudar para o tema claro' : 'Mudar para o tema escuro';
+  $('tema').setAttribute('aria-label', txt);
+  $('tema').title = txt;
+  // Cor da barra do navegador no celular acompanha o tema.
+  document.querySelectorAll('meta[name="theme-color"]').forEach((m) => {
+    m.content = escuro ? '#1b2218' : '#2f6b3a';
+  });
+}
+$('tema').addEventListener('click', () => {
+  const novo = temaAtual() === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = novo;
+  try { localStorage.setItem(CHAVE_TEMA, novo); } catch { /* sem armazenamento */ }
+  mostrarTema();
+});
+temaEscuroSistema.addEventListener('change', mostrarTema);
+mostrarTema();
+
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }

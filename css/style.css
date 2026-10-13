@@ -55,6 +55,17 @@ body {
 .logo { width: 44px; height: 44px; flex: none; border-radius: 11px; }
 .topo h1 { font: 700 21px/1.15 Georgia, "Times New Roman", serif; margin: 0; }
 .topo p { margin: 2px 0 0; font-size: 13px; opacity: .8; }
+.tema {
+  margin-left: auto; flex: none; width: 44px; height: 44px; display: grid; place-items: center; cursor: pointer;
+  border: 1.5px solid color-mix(in srgb, var(--topo-tinta) 35%, transparent); border-radius: 12px;
+  background: transparent; color: var(--topo-tinta);
+}
+.tema:hover { background: color-mix(in srgb, var(--topo-tinta) 12%, transparent); }
+.tema:focus-visible { outline-color: var(--topo-tinta); }
+.tema svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.tema .ic-sol circle { fill: currentColor; stroke: none; }
+.tema .ic-sol, .escuro .tema .ic-lua { display: none; }
+.escuro .tema .ic-sol { display: block; }
 
 /* grade */
 .grade { display: grid; gap: 20px; padding-top: 18px; padding-bottom: 8px; align-items: start; }
