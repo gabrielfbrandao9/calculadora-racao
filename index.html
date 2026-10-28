@@ -24,6 +24,7 @@
       <h1>Calculadora de Ração</h1>
       <p>Programa Nutricional Suinocultura · Progress (Rebanho)</p>
     </div>
+    <button type="button" class="instalar" id="instalar" hidden title="Instalar como app">Instalar</button>
     <button type="button" class="tema" id="tema" aria-label="Mudar para o tema escuro" title="Mudar para o tema escuro">
       <svg class="ic-lua" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
       <svg class="ic-sol" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
@@ -87,7 +88,16 @@
 </main>
 
 <footer class="wrap rodape">
-  <p>As proporções são em kg para cada 100 kg de ração. As porcentagens que você editar ficam salvas neste aparelho.</p>
+  <section class="copia" aria-labelledby="t-copia">
+    <h2 id="t-copia">Cópia de segurança</h2>
+    <p>As porcentagens que você editar ficam salvas só neste aparelho. Baixe uma cópia para guardar ou para passar para outro celular.</p>
+    <div class="botoes">
+      <button type="button" class="btn" id="baixar">Baixar cópia</button>
+      <button type="button" class="btn discreto" id="restaurar">Restaurar cópia</button>
+      <input type="file" id="arquivo" accept=".json,application/json" hidden>
+    </div>
+  </section>
+  <p>As proporções são em kg para cada 100 kg de ração.</p>
   <p>Siga a orientação técnica da Rebanho; as fórmulas sugeridas podem não se aplicar a todo sistema de criação.</p>
 </footer>
 

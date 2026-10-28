@@ -258,6 +258,77 @@ $('tema').addEventListener('click', () => {
 temaEscuroSistema.addEventListener('change', mostrarTema);
 mostrarTema();
 
+/* ---------- cópia de segurança ---------- */
+
+$('baixar').addEventListener('click', () => {
+  const copia = {
+    app: 'calculadora-racao',
+    versao: 1,
+    criadaEm: new Date().toISOString(),
+    formulas,
+    prefs: ler(CHAVE_PREFS),
+    tema: document.documentElement.dataset.theme || null,
+  };
+  const url = URL.createObjectURL(new Blob([JSON.stringify(copia, null, 2)], { type: 'application/json' }));
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `calculadora-racao-${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  const n = Object.keys(formulas).length;
+  avisar(n ? `Cópia baixada (${n} ${n === 1 ? 'fase editada' : 'fases editadas'}).` : 'Cópia baixada (nenhuma fase editada).');
+});
+
+$('restaurar').addEventListener('click', () => $('arquivo').click());
+$('arquivo').addEventListener('change', async () => {
+  const arq = $('arquivo').files[0];
+  $('arquivo').value = '';
+  if (!arq) return;
+  let copia;
+  try { copia = JSON.parse(await arq.text()); } catch { return avisar('Esse arquivo não é uma cópia da calculadora.'); }
+  if (!copia || copia.app !== 'calculadora-racao' || typeof copia.formulas !== 'object' || !copia.formulas) {
+    return avisar('Esse arquivo não é uma cópia da calculadora.');
+  }
+  // Só aceita fases que existem, com uma % por ingrediente.
+  const novas = {};
+  for (const [f, p] of Object.entries(copia.formulas)) {
+    if (f in FORMULAS_PADRAO && Array.isArray(p) && p.length === INGREDIENTES.length) novas[f] = p.map((v) => Math.max(0, +v || 0));
+  }
+  const n = Object.keys(novas).length;
+  const quando = copia.criadaEm ? ` de ${new Date(copia.criadaEm).toLocaleDateString('pt-BR')}` : '';
+  if (!confirm(`Restaurar a cópia${quando}? ${n ? `${n} ${n === 1 ? 'fase editada substitui' : 'fases editadas substituem'}` : 'Todas as fases voltam ao padrão, substituindo'} as porcentagens atuais.`)) return;
+  formulas = novas;
+  gravar(CHAVE, formulas);
+  if (copia.prefs) gravar(CHAVE_PREFS, copia.prefs);
+  if (copia.tema === 'light' || copia.tema === 'dark') {
+    document.documentElement.dataset.theme = copia.tema;
+    try { localStorage.setItem(CHAVE_TEMA, copia.tema); } catch { /* sem armazenamento */ }
+    mostrarTema();
+  }
+  preencherFases();
+  desenhar();
+  avisar('Cópia restaurada.');
+});
+
+/* ---------- instalar como app ---------- */
+
+let pedidoInstalar = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  pedidoInstalar = e;
+  $('instalar').hidden = false;
+});
+$('instalar').addEventListener('click', async () => {
+  if (!pedidoInstalar) return;
+  pedidoInstalar.prompt();
+  await pedidoInstalar.userChoice.catch(() => null);
+  pedidoInstalar = null;
+  $('instalar').hidden = true;
+});
+window.addEventListener('appinstalled', () => { $('instalar').hidden = true; });
+
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }

@@ -67,6 +67,12 @@ body {
 .tema .ic-sol, .escuro .tema .ic-lua { display: none; }
 .escuro .tema .ic-sol { display: block; }
 
+.instalar {
+  margin-left: auto; flex: none; height: 44px; padding: 0 14px; cursor: pointer; font: inherit; font-size: 14px; font-weight: 700;
+  border: 0; border-radius: 12px; background: var(--topo-tinta); color: var(--topo);
+}
+.instalar:not([hidden]) + .tema { margin-left: 0; }
+
 /* grade */
 .grade { display: grid; gap: 20px; padding-top: 18px; padding-bottom: 8px; align-items: start; }
 @media (min-width: 820px) {
@@ -146,6 +152,10 @@ select:focus-visible, input:focus-visible, button:focus-visible { outline: 3px s
 
 .rodape { color: var(--suave); font-size: 12px; padding-top: 10px; padding-bottom: max(24px, env(safe-area-inset-bottom)); }
 .rodape p { margin: 6px 0; max-width: 60ch; }
+.copia { background: var(--cartao); border: 1.5px solid var(--linha); border-radius: 14px; padding: 14px 16px; margin: 6px 0 14px; color: var(--tinta); }
+.copia h2 { font: 700 16px/1.2 Georgia, "Times New Roman", serif; margin: 0; }
+.copia p { color: var(--suave); font-size: 13px; }
+.copia .botoes { flex-wrap: wrap; margin-top: 8px; }
 
 .toast {
   position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); transform: translateX(-50%);

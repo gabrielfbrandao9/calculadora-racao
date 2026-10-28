@@ -5,7 +5,7 @@
  *
  * Ao mudar a lista de arquivos, aumente a versão para limpar o cache antigo.
  */
-const VERSAO = 'v2';
+const VERSAO = 'v3';
 const CACHE = `racao-${VERSAO}`;
 const ARQUIVOS = [
   './',

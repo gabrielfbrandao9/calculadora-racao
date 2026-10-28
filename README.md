@@ -25,9 +25,14 @@ porcentagens do **Programa Nutricional Suinocultura – Progress (Rebanho)** ou 
   aparece marcada com "• editada".
 - **Restaurar padrão** volta às porcentagens originais da fase.
 
+### Cópia de segurança
+
+No fim da página, **Baixar cópia** salva um arquivo `.json` com as porcentagens editadas (e o tema).
+**Restaurar cópia** lê esse arquivo, por exemplo para passar as fórmulas para outro celular.
+
 ## Instalar no celular
 
-Abra o endereço no Chrome (Android) e toque em **Adicionar à tela inicial** / **Instalar app**.
+Abra o endereço no Chrome (Android) e toque no botão **Instalar** no topo (ou no menu ⋮ → **Instalar app**).
 No iPhone, use **Compartilhar → Adicionar à Tela de Início**. Depois de aberto uma vez, funciona
 sem internet.
 
