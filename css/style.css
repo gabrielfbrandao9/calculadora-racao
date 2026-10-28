@@ -152,6 +152,7 @@ select:focus-visible, input:focus-visible, button:focus-visible { outline: 3px s
 
 .rodape { color: var(--suave); font-size: 12px; padding-top: 10px; padding-bottom: max(24px, env(safe-area-inset-bottom)); }
 .rodape p { margin: 6px 0; max-width: 60ch; }
+.rodape a { color: inherit; }
 .copia { background: var(--cartao); border: 1.5px solid var(--linha); border-radius: 14px; padding: 14px 16px; margin: 6px 0 14px; color: var(--tinta); }
 .copia h2 { font: 700 16px/1.2 Georgia, "Times New Roman", serif; margin: 0; }
 .copia p { color: var(--suave); font-size: 13px; }

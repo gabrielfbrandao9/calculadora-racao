@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de Privacidade · Calculadora de Ração</title>
+<meta name="description" content="Política de privacidade do site Calculadora de Ração.">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<script>
+  // Aplica o tema escolhido no site antes de desenhar a página.
+  try { var t = localStorage.getItem('racao-tema'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<style>
+  :root { --bg:#f3efe4; --surface:#fffdf7; --ink:#23301f; --muted:#667060; --line:#d9d3bf; --accent:#2f6b3a; color-scheme: light; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#141912; --surface:#1f261c; --ink:#eef1e6; --muted:#a3ac9a; --line:#3a4535; --accent:#8fcf8a; color-scheme: dark; } }
+  :root[data-theme="dark"] { --bg:#141912; --surface:#1f261c; --ink:#eef1e6; --muted:#a3ac9a; --line:#3a4535; --accent:#8fcf8a; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { background: var(--surface); border-bottom: 1px solid var(--line); }
+  header .in, main, footer { max-width: 760px; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
+  header .in { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 12px; padding-bottom: 12px; }
+  header strong { font-size: 17px; }
+  a { color: var(--accent); }
+  .voltar { text-decoration: none; font-weight: 600; font-size: 14px; border: 1px solid var(--line); border-radius: 10px; padding: 7px 12px; color: var(--ink); background: var(--bg); white-space: nowrap; }
+  main { padding-top: 24px; padding-bottom: 24px; }
+  h1 { font-size: 28px; line-height: 1.2; margin: 0 0 4px; }
+  h2 { font-size: 19px; margin: 28px 0 6px; }
+  p, li { max-width: 68ch; }
+  .muted { color: var(--muted); font-size: 14px; }
+  footer { color: var(--muted); font-size: 14px; padding-top: 8px; padding-bottom: 32px; }
+</style>
+</head>
+<body>
+<header><div class="in"><strong>Calculadora de Ração</strong><a class="voltar" href="./">← Voltar</a></div></header>
+<main>
+  <h1>Política de Privacidade</h1>
+  <p class="muted">Última atualização: 28 de outubro de 2026</p>
+  <p>A <strong>Calculadora de Ração</strong> calcula a mistura de ração para suínos. Ela funciona inteira no seu
+    navegador: <strong>não tem conta, não pede dados pessoais e não envia nada para nenhum servidor</strong>.</p>
+  <h2>O que fica guardado no seu aparelho</h2>
+  <ul>
+    <li>As porcentagens que você editar em cada fase;</li>
+    <li>a última fase, o modo de cálculo e a quantidade usados;</li>
+    <li>o tema escolhido (claro ou escuro).</li>
+  </ul>
+  <p>Isso fica só no armazenamento do navegador deste aparelho. Para apagar, use <em>Restaurar padrão</em> em cada fase
+    ou limpe os dados do site nas configurações do navegador. A <em>cópia de segurança</em> é um arquivo que você mesmo baixa
+    e guarda; ela não vai para lugar nenhum.</p>
+  <p>Ao usar <em>Compartilhar mistura</em>, o texto vai para o aplicativo que você escolher (WhatsApp, por exemplo),
+    pelas regras dele.</p>
+  <h2>Hospedagem</h2>
+  <p>O site é hospedado no <a href="https://docs.github.com/pt/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub Pages</a>,
+    que, como qualquer servidor, recebe o endereço IP de quem acessa para entregar a página.</p>
+  <h2>Cookies e análise</h2>
+  <p>Não usamos cookies de rastreamento, anúncios nem ferramentas de análise de visitas.</p>
+  <h2>Dúvidas</h2>
+  <p>Escreva para <a href="mailto:gabrielfbrandao9@gmail.com">gabrielfbrandao9@gmail.com</a>.</p>
+</main>
+<footer><a href="./">Calculadora de Ração</a></footer>
+</body>
+</html>

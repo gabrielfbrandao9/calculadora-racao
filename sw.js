@@ -5,11 +5,12 @@
  *
  * Ao mudar a lista de arquivos, aumente a versão para limpar o cache antigo.
  */
-const VERSAO = 'v3';
+const VERSAO = 'v4';
 const CACHE = `racao-${VERSAO}`;
 const ARQUIVOS = [
   './',
   'index.html',
+  'privacidade.html',
   'manifest.webmanifest',
   'css/style.css',
   'js/dados.js',
