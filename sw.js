@@ -5,7 +5,7 @@
  *
  * Ao mudar a lista de arquivos, aumente a versão para limpar o cache antigo.
  */
-const VERSAO = 'v4';
+const VERSAO = 'v5';
 const CACHE = `racao-${VERSAO}`;
 const ARQUIVOS = [
   './',
@@ -15,6 +15,7 @@ const ARQUIVOS = [
   'css/style.css',
   'js/dados.js',
   'js/app.js',
+  'js/app-apk.js',
   'icons/icon.svg',
   'icons/icon-192.png',
   'icons/icon-512.png',

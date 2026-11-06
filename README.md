@@ -32,7 +32,8 @@ No fim da página, **Baixar cópia** salva um arquivo `.json` com as porcentagen
 
 ## Instalar no celular
 
-Abra o endereço no Chrome (Android) e toque no botão **Instalar** no topo (ou no menu ⋮ → **Instalar app**).
+No Android, abra o endereço e toque no botão **Instalar** no topo: ele baixa o APK. Dentro do app, o mesmo
+botão vira **Atualizar** e procura uma versão nova (`js/app-apk.js`).
 No iPhone, use **Compartilhar → Adicionar à Tela de Início**. Depois de aberto uma vez, funciona
 sem internet.
 

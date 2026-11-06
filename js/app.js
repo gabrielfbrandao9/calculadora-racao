@@ -312,23 +312,6 @@ $('arquivo').addEventListener('change', async () => {
   avisar('Cópia restaurada.');
 });
 
-/* ---------- instalar como app ---------- */
-
-let pedidoInstalar = null;
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  pedidoInstalar = e;
-  $('instalar').hidden = false;
-});
-$('instalar').addEventListener('click', async () => {
-  if (!pedidoInstalar) return;
-  pedidoInstalar.prompt();
-  await pedidoInstalar.userChoice.catch(() => null);
-  pedidoInstalar = null;
-  $('instalar').hidden = true;
-});
-window.addEventListener('appinstalled', () => { $('instalar').hidden = true; });
-
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }
